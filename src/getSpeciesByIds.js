@@ -11,5 +11,6 @@ function getSpeciesByIds(...ids) {
     });
   }
   return result;
+  // return species.filter((item) => ids.find((elemento) => elemento === item.id))
 }
 module.exports = getSpeciesByIds;
