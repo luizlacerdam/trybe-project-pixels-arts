@@ -1,8 +1,17 @@
 const { species } = require('../data/zoo_data');
 const data = require('../data/zoo_data');
 
-function getSpeciesByIds(ids) {
-  return species.filter((element) => element.id === ids);
+function getSpeciesByIds(...ids) {
+  let result = [];
+  if (ids.length === 0) {
+    result = [];
+  } else {
+    ids.forEach((id) => {
+      result.push(species.find((element) => element.id === id));
+    });
+  }
+  return result;
 }
-console.log(getSpeciesByIds('0938aa23-f153-4937-9f88-4858b24d6bce'));
+console.log(getSpeciesByIds('0938aa23-f153-4937-9f88-4858b24d6bce',
+  '533bebf3-6bbe-41d8-9cdf-46f7d13b62ae'));
 module.exports = getSpeciesByIds;
