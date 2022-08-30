@@ -4,10 +4,13 @@ function isManager(id) {
   const colaboradores = data.employees;
   return colaboradores.some((elemento) => elemento.managers.find((ids) => ids === id));
 }
-// burlId pessoa gerente
-console.log(isManager('9e7d4524-363c-416a-8759-8aa7e50c09921'));
-function getRelatedEmployees(managerId) {
-  // seu código aqui
-}
 
+function getRelatedEmployees(managerId) {
+  if (!isManager(managerId)) {
+    throw new Error('O id inserido não é de uma pessoa colaboradora gerente!');
+  } else {
+    return data.employees.filter((element) => element.managers.includes(managerId)).map((item) => `${item.firstName} ${item.lastName}`);
+  }
+}
+//console.log(getRelatedEmployees('0e7b460e-acf4-4e17-bcb3-ee472265db83'));
 module.exports = { isManager, getRelatedEmployees };
