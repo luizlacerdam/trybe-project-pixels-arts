@@ -16,7 +16,6 @@ function countAnimals(animal) {
   }
   const filtroSexo = escontrarEspecie.residents.filter((resident) => resident.sex === sex);
   return filtroSexo.length;
-  
 }
 console.log(countAnimals({ specie: 'giraffes', sex: 'male' }));
 module.exports = countAnimals;
