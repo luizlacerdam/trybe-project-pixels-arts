@@ -12,13 +12,22 @@ function findByName(name) {
   }
   return new Error('Informações inválidas');
 }
-console.log(findByName('sasa'));
-// function findById(id) {
-  
-// }
+
+function findById(id) {
+  const colaboradores = data.employees;
+  const colaborador = colaboradores.find((pessoa) => pessoa.id === id);
+  if (colaborador !== undefined) {
+    return colaborador;
+  }
+  return new Error('Informações inválidas');
+}
+
 function getEmployeesCoverage(obj) {
   const { name, id } = obj;
-  return 0;
+  if (name) {
+    return findByName(name);
+  }
+  return findById(id);
 }
-// console.log(getEmployeesCoverage({ name: 'luiz' }));
+console.log(getEmployeesCoverage({ id: '56d43ba3-a5a7-40f6-8dsd7-cbb05082383f' }));
 module.exports = getEmployeesCoverage;
