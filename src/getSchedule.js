@@ -4,9 +4,8 @@ function getSchedule(scheduleTarget) {
   if (!scheduleTarget) {
     const { hours } = data;
     const hoursArray = Object.entries(hours);
-    let obj = {};
     
-    return hoursArray;
+    return hours;
   }
   const animalProcurado = data.species.find((animal) => animal.name === scheduleTarget);
   return animalProcurado.availability;
