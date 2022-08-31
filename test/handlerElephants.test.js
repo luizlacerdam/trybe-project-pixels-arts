@@ -5,6 +5,7 @@ describe('Testes da função HandlerElephants', () => {
     expect(handlerElephants()).toBeUndefined();
   });
   it('Testa se o parametro for um numero retorna uma string de error', () => {
+    expect(typeof handlerElephants(69)).toBe('string');
     expect(handlerElephants(69)).toBe('Parâmetro inválido, é necessário uma string');
   });
   it('Testa se parametros diferentes retorna null', () => {
@@ -22,5 +23,9 @@ describe('Testes da função HandlerElephants', () => {
   it('Testa se parametro "averageAge" retorna a media de idade dos elephantes', () => {
     expect(typeof handlerElephants('averageAge')).toBe('number');
     expect(handlerElephants('averageAge')).toBeCloseTo(10.5);
+  });
+  it('Testa se parametro "location" retorna a localizacao dos elephantes no zoo', () => {
+    expect(typeof handlerElephants('location')).toBe('string');
+    expect(handlerElephants('location')).toBe('NW');
   });
 });
