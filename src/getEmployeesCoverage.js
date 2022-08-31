@@ -33,6 +33,19 @@ function locationPush(arr) {
   });
   return locations;
 }
+function nameSpecie(specieId) {
+  const especies = data.species;
+  const specieFind = especies.find((especie) => especie.id === specieId);
+  return specieFind.name;
+}
+function nameSpeciePush(arr) {
+  const specieNames = [];
+  arr.forEach((element) => {
+    specieNames.push(nameSpecie(element));
+  });
+  return specieNames;
+}
+console.log(nameSpeciePush(['ef3778eb-2844-4c7c-b66c-f432073e1c6b']));
 function getEmployeesCoverage(obj) {
   const { name, id } = obj;
   if (name) {
@@ -46,5 +59,5 @@ function getEmployeesCoverage(obj) {
   }
   return findById(id);
 }
-console.log(getEmployeesCoverage({ name: 'Sharonda' }));
+//console.log(getEmployeesCoverage({ name: 'Sharonda' }));
 module.exports = getEmployeesCoverage;
