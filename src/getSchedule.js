@@ -3,8 +3,7 @@ const data = require('../data/zoo_data');
 function getSchedule(scheduleTarget) {
   if (!scheduleTarget) {
     const { hours } = data;
-    const hoursArray = Object.entries(hours);
-    
+    // const hoursArray = Object.entries(hours);
     return hours;
   }
   const animalProcurado = data.species.find((animal) => animal.name === scheduleTarget);
