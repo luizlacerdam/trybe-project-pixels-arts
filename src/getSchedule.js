@@ -9,6 +9,7 @@ function findByDay(params) {
   const 
   return 0;
 }
+
 function whatItIs(string) {
   const days = Object.keys(data.hours);
   const species = data.species.map((specie) => specie.name);
