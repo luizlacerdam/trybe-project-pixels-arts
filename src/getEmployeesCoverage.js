@@ -58,6 +58,16 @@ function padraoRetorno(id, firstName, lastName, responsibleFor) {
 }
 
 function getEmployeesCoverage(obj) {
+  if (!obj) {
+    const colaboradores = data.employees;
+    const arr = [];
+    colaboradores.forEach((item) => {
+      const { id, firstName, lastName, responsibleFor } = item;
+      arr.push(padraoRetorno(id, firstName, lastName, responsibleFor));
+    });
+
+    return arr;
+  }
   const { name, id: ObjId } = obj;
   if (name) {
     const { id, firstName, lastName, responsibleFor } = findByName(name);
@@ -66,5 +76,5 @@ function getEmployeesCoverage(obj) {
   const { id, firstName, lastName, responsibleFor } = findById(ObjId);
   return padraoRetorno(id, firstName, lastName, responsibleFor);
 }
-console.log(getEmployeesCoverage({ name: 'Nelson' }));
+console.log(getEmployeesCoverage());
 module.exports = getEmployeesCoverage;
