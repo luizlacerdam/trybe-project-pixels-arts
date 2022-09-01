@@ -4,22 +4,25 @@ function findByName(name) {
   const colaboradores = data.employees;
   const findFirstName = colaboradores.find((colaborador) => colaborador.firstName === name);
   const findLastName = colaboradores.find((colaborador) => colaborador.lastName === name);
+  if (findFirstName === undefined && findLastName === undefined) {
+    throw new Error('Informações inválidas');
+  }
   if (findFirstName !== undefined) {
     return findFirstName;
   }
   if (findLastName !== undefined) {
     return findLastName;
   }
-  return new Error('Informações inválidas');
 }
-
 function findById(id) {
   const colaboradores = data.employees;
   const colaborador = colaboradores.find((pessoa) => pessoa.id === id);
+  if (colaborador === undefined) {
+    throw new Error('Informações inválidas');
+  }
   if (colaborador !== undefined) {
     return colaborador;
   }
-  return new Error('Informações inválidas');
 }
 function locationSpecie(specieId) {
   const especies = data.species;
@@ -45,19 +48,23 @@ function nameSpeciePush(arr) {
   });
   return specieNames;
 }
-console.log(nameSpeciePush(['ef3778eb-2844-4c7c-b66c-f432073e1c6b']));
+function padraoRetorno(id, firstName, lastName, responsibleFor) {
+  return {
+    id,
+    fullName: `${firstName} ${lastName}`,
+    species: nameSpeciePush(responsibleFor),
+    locations: locationPush(responsibleFor),
+  };
+}
+
 function getEmployeesCoverage(obj) {
-  const { name, id } = obj;
+  const { name, id: ObjId } = obj;
   if (name) {
     const { id, firstName, lastName, responsibleFor } = findByName(name);
-    return {
-      id,
-      fullName: `${firstName} ${lastName}`,
-      species: responsibleFor,
-      locations: locationPush(responsibleFor),
-    };
+    return padraoRetorno(id, firstName, lastName, responsibleFor);
   }
-  return findById(id);
+  const { id, firstName, lastName, responsibleFor } = findById(ObjId);
+  return padraoRetorno(id, firstName, lastName, responsibleFor);
 }
-//console.log(getEmployeesCoverage({ name: 'Sharonda' }));
+console.log(getEmployeesCoverage({ name: 'Nelson' }));
 module.exports = getEmployeesCoverage;
