@@ -5,11 +5,24 @@ function findByAnimal(nome) {
   const animal = animals.find((item) => item.name === nome);
   return animal.availability;
 }
-function findByDay(params) {
-  const 
-  return 0;
+function animalArrays(day) {
+  const animals = data.species;
+  const arr = [];
+  const filtroAnimais = animals.filter((element) => element.availability.includes(day));
+  filtroAnimais.forEach((item) => arr.push(item.name));
+  return arr;
 }
-
+function findByDay(day) {
+  const horarios = data.hours;
+  const horario = horarios[day];
+  return {
+    [day]: {
+      officeHour: `Open from ${horario.open}am until ${horario.close}pm`,
+      exhibition: animalArrays(day),
+    },
+  };
+}
+// console.log(findByDay('Thursday'));
 function whatItIs(string) {
   const days = Object.keys(data.hours);
   const species = data.species.map((specie) => specie.name);
@@ -30,5 +43,5 @@ function getSchedule(scheduleTarget) {
   }
   return 0;
 }
-console.log(getSchedule('lions'));
+// console.log(getSchedule('lions'));
 module.exports = getSchedule;
