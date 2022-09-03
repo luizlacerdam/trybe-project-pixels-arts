@@ -1,18 +1,23 @@
 const data = require('../data/zoo_data');
 const { species } = data;
-function findLocations() {
+
+function locations() {
   const arr = [];
-  return species
+  species.forEach((element) => {
+    if (!arr.includes(element.location)) {
+      arr.push(element.location);
+    }
+  });
+  return arr;
 }
-console.log(findLocations());
+console.log(locations());
 function findAnimals(location) {
-  
   const filtroAnimais = species.filter((animal) => animal.location === location);
   const arr = [];
   filtroAnimais.forEach((item) => arr.push(item.name));
   return arr;
 }
-console.log(findAnimals('NE'));
+// console.log(findAnimals('NE'));
 function getAnimalMap(options) {
   return species;
 }
