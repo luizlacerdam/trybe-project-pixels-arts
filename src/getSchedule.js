@@ -15,14 +15,26 @@ function animalArrays(day) {
 function findByDay(day) {
   const horarios = data.hours;
   const horario = horarios[day];
+  if (day === 'Monday') {
+    return {
+      officeHour: 'CLOSED',
+      exhibition: 'The zoo will be closed!',
+    };
+  }
   return {
-    [day]: {
-      officeHour: `Open from ${horario.open}am until ${horario.close}pm`,
-      exhibition: animalArrays(day),
-    },
+    officeHour: `Open from ${horario.open}am until ${horario.close}pm`,
+    exhibition: animalArrays(day),
   };
 }
-// console.log(findByDay('Thursday'));
+function allSchesule() {
+  const days = Object.keys(data.hours);
+  const obj = days.reduce((acc, curr) => {
+    acc[curr] = findByDay(curr);
+    return acc;
+  }, {});
+  return obj;
+}
+// console.log(allSchesule());
 function whatItIs(string) {
   const days = Object.keys(data.hours);
   const species = data.species.map((specie) => specie.name);
@@ -32,16 +44,18 @@ function whatItIs(string) {
   if (species.includes(string)) {
     return 'animal';
   }
-  return 'error?';
+  return allSchesule();
 }
 function getSchedule(scheduleTarget) {
   if (whatItIs(scheduleTarget) === 'day') {
-    return findByDay(scheduleTarget);
+    return {
+      [scheduleTarget]: findByDay(scheduleTarget),
+    };
   }
   if (whatItIs(scheduleTarget) === 'animal') {
     return findByAnimal(scheduleTarget);
   }
-  return 0;
+  return allSchesule();
 }
-// console.log(getSchedule('lions'));
+console.log(getSchedule('Tuesday'));
 module.exports = getSchedule;
