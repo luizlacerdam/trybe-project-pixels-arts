@@ -11,18 +11,12 @@ function locations() {
   });
   return arr;
 }
-// array de locations para loop
-// [ 'NE', 'NW', 'SE', 'SW' ]
-
 function findAnimals(location) {
   const filtroAnimais = species.filter((animal) => animal.location === location);
   const arr = [];
   filtroAnimais.forEach((item) => arr.push(item.name));
   return arr;
 }
-// recebe uma string e retorna animais que estao naquela loc
-// [ 'lions', 'giraffes' ]
-
 function defaultObject() {
   const reduceObj = locations().reduce((acc, curr) => {
     acc[curr] = findAnimals(curr);
@@ -30,25 +24,30 @@ function defaultObject() {
   }, {});
   return reduceObj;
 }
-// retorna objeto padrao
-// {
-//   NE: [ 'lions', 'giraffes' ],
-//   NW: [ 'tigers', 'bears', 'elephants' ],
-//   SE: [ 'penguins', 'otters' ],
-//   SW: [ 'frogs', 'snakes' ]
-// }
-
 function animalNames(especie) {
   const filtroAnimais = species.filter((animal) => animal.name === especie);
   const arr = [];
   filtroAnimais[0].residents.forEach((element) => arr.push(element.name));
   return { [especie]: arr };
 }
-// recebe uma especie e  retorna { lions: [ 'Zena', 'Maxwell', 'Faustino', 'Dee' ] }
+function animalNamesSex(especie, sex) {
+  const filtroAnimais = species.filter((animal) => animal.name === especie);
+  const arr = [];
+  const filtroSex = filtroAnimais[0].residents.filter((animal) => animal.sex === sex);
+  filtroSex.forEach((element) => arr.push(element.name));
+  return { [especie]: arr };
+}
 function animalNamesSorted(especie) {
   const filtroAnimais = species.filter((animal) => animal.name === especie);
   const arr = [];
   filtroAnimais[0].residents.forEach((element) => arr.push(element.name));
+  return { [especie]: arr.sort() };
+}
+function animalNamesSexSorted(especie, sex) {
+  const filtroAnimais = species.filter((animal) => animal.name === especie);
+  const arr = [];
+  const filtroSex = filtroAnimais[0].residents.filter((animal) => animal.sex === sex);
+  filtroSex.forEach((element) => arr.push(element.name));
   return { [especie]: arr.sort() };
 }
 function demaisObjSorted() {
@@ -75,31 +74,47 @@ function demaisObj() {
   });
   return objPadrao;
 }
-// {
-//   NE: [ { lions: [Array] }, { giraffes: [Array] } ],
-//   NW: [ { tigers: [Array] }, { bears: [Array] }, { elephants: [Array] } ],
-//   SE: [ { penguins: [Array] }, { otters: [Array] } ],
-//   SW: [ { frogs: [Array] }, { snakes: [Array] } ]
-// }
+function demaisObjSex(sex) {
+  const localizacoes = locations();
+  const objPadrao = defaultObject();
+  localizacoes.forEach((localizacao) => {
+    const arr = [];
+    findAnimals(localizacao).forEach((item) => {
+      arr.push(animalNamesSex(item, sex));
+      objPadrao[localizacao] = arr;
+    });
+  });
+  return objPadrao;
+}
+function demaisObjSexSorted(sex) {
+  const localizacoes = locations();
+  const objPadrao = defaultObject();
+  localizacoes.forEach((localizacao) => {
+    const arr = [];
+    findAnimals(localizacao).forEach((item) => {
+      arr.push(animalNamesSexSorted(item, sex));
+      objPadrao[localizacao] = arr;
+    });
+  });
+  return objPadrao;
+}
 function objDestruc(options) {
-  const { includeNames, sex, sorted } = options;
+  const { sex, sorted } = options;
   if (sex && sorted) {
-    return 'sex and sorted';
+    return demaisObjSexSorted(sex);
   }
   if (sex) {
-    return 'sexx';
+    return demaisObjSex(sex);
   }
   if (sorted) {
     return demaisObjSorted();
   }
   return demaisObj();
 }
-console.log(objDestruc({ includeNames: true }));
 function getAnimalMap(options) {
   if (!options || !options.includeNames) {
     return defaultObject();
   }
   return objDestruc(options);
 }
-// console.log(getAnimalMap({ includeNames: true }));
 module.exports = getAnimalMap;
