@@ -11,6 +11,8 @@ function locations() {
   });
   return arr;
 }
+// array de locations para loop
+// [ 'NE', 'NW', 'SE', 'SW' ]
 
 function findAnimals(location) {
   const filtroAnimais = species.filter((animal) => animal.location === location);
@@ -18,6 +20,8 @@ function findAnimals(location) {
   filtroAnimais.forEach((item) => arr.push(item.name));
   return arr;
 }
+// recebe uma string e retorna animais que estao naquela loc
+// [ 'lions', 'giraffes' ]
 
 function defaultObject() {
   const reduceObj = locations().reduce((acc, curr) => {
@@ -26,14 +30,33 @@ function defaultObject() {
   }, {});
   return reduceObj;
 }
-function namedAnimals(location) {
-  const filtroAnimais = species.filter((animal) => animal.location === location);
+// retorna objeto padrao
+// {
+//   NE: [ 'lions', 'giraffes' ],
+//   NW: [ 'tigers', 'bears', 'elephants' ],
+//   SE: [ 'penguins', 'otters' ],
+//   SW: [ 'frogs', 'snakes' ]
+// }
+
+function animalNames(especie) {
+  const filtroAnimais = species.filter((animal) => animal.name === especie);
   const arr = [];
-  filtroAnimais.forEach((element) => arr.push(element.residents));
-  // filtroAnimais.residents.forEach((item) => arr.push(item.name));
-  return arr;
+  filtroAnimais[0].residents.forEach((element) => arr.push(element.name));
+  return { [especie]: arr };
 }
-console.log(namedAnimals('NE'));
+// recebe uma especie e  retorna { lions: [ 'Zena', 'Maxwell', 'Faustino', 'Dee' ] }
+function demaisObj() {
+  const localizacoes = locations();
+  const objPadrao = defaultObject();
+  localizacoes.forEach((localizacao) => {
+    const arr = [];
+    findAnimals(localizacao).forEach((item) => {
+      arr.push(animalNames(item));
+      objPadrao[localizacao] = arr;
+    });
+  });
+  return objPadrao;
+}
 function objDestruc(options) {
   const { includeNames, sex, sorted } = options;
   if (sex && sorted) {
@@ -45,8 +68,9 @@ function objDestruc(options) {
   if (sorted) {
     return 'sorted';
   }
-  return includeNames;
+  return demaisObj();
 }
+console.log(objDestruc({ includeNames: true }));
 function getAnimalMap(options) {
   if (!options || !options.includeNames) {
     return defaultObject();
