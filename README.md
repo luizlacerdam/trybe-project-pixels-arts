@@ -1,7 +1,7 @@
-# Boas vindas ao projeto Todo List!
+# Boas vindas ao projeto Zoo Functions!
   Projeto feito durante o curso de desenvolvimento web na trybe.
 
-  Esse projeto foi feito para praticar alguns conceitos de HOFs.
+  Esse projeto foi feito para praticar algumas habilidades de HOFs e Jest.
 
 ## Habilidades
 - Utilizar novas funcionalidades do ES6, como arrow functions, template literals, spread operator, parâmetro rest e object destructuring;
