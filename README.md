@@ -42,7 +42,7 @@
 
     ✅ 14. Implemente a função `getAnimalMap`.
     
-    ### Requisitos Bônus:
+### Requisitos Bônus:
     
     ✅ 15. Obtenha 100% de cobertura de testes na função `handlerElephants`.
     
